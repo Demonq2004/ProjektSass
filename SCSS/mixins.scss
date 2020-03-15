@@ -1,0 +1,77 @@
+@mixin banner{
+	width: 100%;
+	position:relative;
+	color: white;
+
+		.banner-content{
+			position: absolute;
+			top: 50px;
+			width: 100%;
+		}
+		span{
+			font-size: $bh;
+			display: block;
+			text-transform: uppercase;
+			font-weight: bold;
+			
+			@include mQ(3000px, 1200px){
+				font-size: 68px;
+			}
+		}
+		span.title{
+			font-weight: bold;
+			margin-bottom: 30px;
+		}
+		img{
+			width: 100%;
+		}
+// @mixin upraszcza pisanie kodu i jeśli użyjemy @include to ten kod wklei
+
+}
+
+@mixin clearFix{
+	&:after{
+		content: "";
+		display: block;
+		clear: both;
+// & - oznacze że nie musimy przepisywać dalej classy lub id, np classa="dom", to zamiast przepisywac dom:after to piszemy &:after
+	}
+}
+
+@mixin grid($cols, $mgn){
+	float: left;
+	margin-right: $mgn;
+	margin-bottom: $mgn;
+	width: ((100% - (($cols - 1 ) * $mgn)) / $cols);
+	&:nth-child(#{$cols}n){
+		margin-right: 0;
+	}
+}
+//$cols - liczba zdjęć w kolumnie , $mgn - margin, grid powoduje ustawianie się zdjęć i jaką mają zajmować powierzchnię dane zdjęcie np $cols = 4, $mgn = 5% to (100 - ((4-1) * 5) / 4 = 21,25% <- tyle zajmuje 1-no zdjecie jeśli w kolumnie znajdują się 4 zdjęcia 
+
+
+//------------------------------------------------------------------------
+
+//@mixin mQ($arg){
+//	@media screen and (min-width: $arg){
+//		@content;
+//	}
+//}
+// zmieniłem MAX-WIDTH na MIN-WIDTH abym mógł zrobić responsywną tabelę :)
+
+//------------------------------------------------------------------------
+
+@mixin mQ($arg...){
+	@if length($arg) == 1{
+		@media screen and (max-width: nth($arg, 1)){
+			@content;
+		}
+	}
+	@if length($arg) == 2{
+		@media screen and (max-width: nth($arg, 1)) and (min-width: nth($arg, 2)){
+			@content;
+		}
+	}
+}
+
+//@mixin mQ powoduje (tak myślę), że jeżeli powiedzielimy dwie podane szerokości ekranu to wykona sie dana sekwencja

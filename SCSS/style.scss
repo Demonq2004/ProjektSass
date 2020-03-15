@@ -1,0 +1,103 @@
+//Presudoklasa after Tworzy pseudoelement, który staje się ostatnim dzieckiem danego elementu. Zazwyczaj używany jest do wprowadzania kosmetycznych zmian danego elementu. Domyślnie element wstawiany jest inline.
+@import "reset";
+@import "variables";
+@import "mixins";
+
+//wzbogacamy projekt o nowe pliki scss tylko dlatego aby było bardziej przejżyście
+
+#main-nav{
+	background-color: $nb;
+	ul{
+		list-style: none;
+		width: 100%;
+		@include clearFix;
+	}
+	li{
+		width: (100% / 6);
+		float: left;
+//		@include mQ(0px){
+//		width: 100%;
+//		}						<- Moja 1-sza responsywność
+//		@include mQ(600px){
+//		width: 50%;
+//		}
+//		@include mQ(1200px){
+//		width: (100% / 6);
+//	}
+		@include mQ(600px, 300px){
+			width: 100%;
+		}
+
+	}
+	a{
+		color: $w;
+		padding: 16px;
+		text-decoration: none;
+		display: block;
+		text-align: center;
+		&:hover{
+			background-color: lighten($nb, 7);
+			// lighten rozjaśnia nasz kolor
+		}
+	}
+}
+
+
+section h1{
+	font-size: $sh;
+	color: $nb;
+}
+
+.lead-banner{
+	@include banner;
+	text-align: right;
+}
+
+.lessons-banner{
+	@include banner;
+	li{
+		text-transform: uppercase;
+		font-size: 25px;
+		max-width: 500px;
+		margin-top:  60px 0;
+	}
+}
+
+#services{
+	margin-bottom: 60px;
+	li{
+		float: left;
+		text-align: center;
+		width: (100% / 3);
+		box-sizing: border box;
+// niestety niemozliwe jest podzielenie 100% na 3 równe części ale jeśli napiszemy 33% to 1% zostanie wolny i moze nam przeszkadzać, a jeżeli napiszemy 100% / 3 to wyjdzie ten 1% tez bedzie wykorzystany (nie potrafie tłumaczyć :( ) 
+
+	}
+	img{
+		width: 60%;
+		margin:20px 20%;
+	}
+	a{
+		text-decoration: none;
+		color: $nb;
+		font-weight: bold;
+		&:hover{
+			color: complement($nb);
+			//complement - niestety nie wiem jak to wytłumaczyć ale doczytałem się że zwraca dopełnienie RGB koloru $
+		}
+	}
+	ul{
+		@include clearFix;
+	}
+}
+
+#projects li{
+	@include grid(4, 4%);
+	img{
+		width: 100%;
+	}
+}
+li img{
+	width: 300px;
+	height: 300px;
+}
